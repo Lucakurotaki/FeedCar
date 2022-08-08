@@ -7,10 +7,10 @@ import { Like } from "../../../../domain/entities/Like";
 export class FirestoreLikeRepository implements LikeRepository{
     private likeReference = db.collection('likes');
 
-    public async get(id: Id): Promise<boolean> {
-        const likeDoc = await this.likeReference.doc(id.id).get();
+    public async get(like: Like): Promise<boolean> {
+        const likeDoc = await this.likeReference.where('userId', '==', like.userId).where('vehicleId', '==', like.vehicleId).get();
 
-        if(likeDoc.exists){
+        if(!likeDoc.empty){
             return true;
         }
 

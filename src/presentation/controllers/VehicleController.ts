@@ -5,6 +5,7 @@ import { UpdateVehicleCommand } from "../../application/command/vehicleCommand/U
 import { GetAllVehiclesQuery } from "../../application/query/vehicleQuery/GetAllVehiclesQuery";
 import { GetVehicleQuery } from "../../application/query/vehicleQuery/GetVehicleQuery";
 import { FirestoreVehicleRepository } from "../../infrastructure/persistence/firestore/repositories/FirestoreVehicleRepository";
+import { FirestoreSession } from "../../infrastructure/persistence/firestore/session/FirestoreSession";
 
 export class VehicleController{
 
@@ -31,13 +32,21 @@ export class VehicleController{
     }
 
     public async create(req: Request, res: Response): Promise<Response>{
-        const {userId, model, year, engine, gear, onSale, rent, value} = req.body;
+        const {model, year, engine, gear, onSale, rent, value} = req.body;
+
+        const session = new FirestoreSession();
+
+        const sessionId = await session.get();
+
+        if(!sessionId.id){
+            return res.status(400).send('No session found.');
+        }
 
         const repoVehicle = new FirestoreVehicleRepository();
 
         const command = new CreateVehicleCommand(repoVehicle);
 
-        const vehicleId = await command.execute({userId, model, year, engine, gear, onSale, rent, value});
+        const vehicleId = await command.execute({userId: sessionId.id, model, year, engine, gear, onSale, rent, value});
 
         return res.status(201).json({id: vehicleId.id});
     }
@@ -45,18 +54,34 @@ export class VehicleController{
     public async change(req: Request, res: Response): Promise<Response>{
         const reqId = req.params.id;
 
-        const {id = reqId, userId, model, year, engine, gear, onSale, rent, value} = req.body;
+        const {id = reqId, model, year, engine, gear, onSale, rent, value} = req.body;
+
+        const session = new FirestoreSession();
+
+        const sessionId = await session.get();
+
+        if(!sessionId.id){
+            return res.status(400).send('No session found.');
+        }
 
         const repoVehicle = new FirestoreVehicleRepository();
 
         const command = new UpdateVehicleCommand(repoVehicle);
 
-        const vehicleUpdate = await command.execute({id, userId, model, year, engine, gear, onSale, rent, value});
+        const vehicleUpdate = await command.execute({id, userId: sessionId.id, model, year, engine, gear, onSale, rent, value});
 
         return res.status(200).json({id: vehicleUpdate.id, time: vehicleUpdate.time});
     }
 
     public async delete(req: Request, res: Response): Promise<Response>{
+        const session = new FirestoreSession();
+
+        const sessionId = await session.get();
+
+        if(!sessionId.id){
+            return res.status(400).send('No session found.');
+        }
+        
         const repoVehicle = new FirestoreVehicleRepository();
 
         const reqId = req.params.id;

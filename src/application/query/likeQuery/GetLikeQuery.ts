@@ -1,8 +1,9 @@
-import { Id } from "../../../domain/capsules/Id";
+import { Like } from "../../../domain/entities/Like";
 import { LikeRepository } from "../../repositories/LikeRepo";
 
 interface GetLikeRequestModel{
-    id: string;
+    userId: string;
+    vehicleId: string;
 }
 
 export class GetLikeQuery{
@@ -13,8 +14,8 @@ export class GetLikeQuery{
     }
 
     public async execute(request: GetLikeRequestModel): Promise<boolean>{
-        const reqId = request as Id;
+        const reqLike = request as Like;
 
-        return this.likeRepository.get(reqId);
+        return this.likeRepository.get(reqLike);
     }
 }
