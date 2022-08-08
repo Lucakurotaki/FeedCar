@@ -9,5 +9,6 @@ router.get('/', vehicleController.all);
 router.get('/:id', vehicleController.get);
 router.post('/', vehicleController.create);
 router.put('/:id', vehicleController.change);
+router.delete('/:id', vehicleController.delete);
 
 export default router;

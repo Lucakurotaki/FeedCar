@@ -1,7 +1,7 @@
 import { db } from "..";
 import { VehicleRepository } from "../../../../application/repositories/VehicleRepo";
 import { Id } from "../../../../domain/capsules/Id";
-import { UpdateTime } from "../../../../domain/capsules/UpdateTime";
+import { ActionTime } from "../../../../domain/capsules/ActionTime";
 import { Vehicle } from "../../../../domain/entities/Vehicle";
 
 export class FirestoreVehicleRepository implements VehicleRepository{
@@ -29,9 +29,15 @@ export class FirestoreVehicleRepository implements VehicleRepository{
         return {id: vehicle.id} as Id;
     }
 
-    public async change(vehicleObj: Vehicle, id: Id): Promise<UpdateTime> {
+    public async change(vehicleObj: Vehicle, id: Id): Promise<ActionTime> {
         const vehicle = await this.vehiclesReference.doc(id.id).update(vehicleObj as object);
 
-        return {id: id.id, time: vehicle.writeTime} as UpdateTime;
+        return {id: id.id, time: vehicle.writeTime} as ActionTime;
+    }
+
+    public async delete(id: Id): Promise<ActionTime> {
+        const vehicle = await this.vehiclesReference.doc(id.id).delete();
+
+        return {id: id.id, time: vehicle.writeTime};
     }
 }

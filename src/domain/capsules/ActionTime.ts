@@ -1,4 +1,4 @@
-export class UpdateTime{
+export class ActionTime{
     id: string;
     time: any;
 }
