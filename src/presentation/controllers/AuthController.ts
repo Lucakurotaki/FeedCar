@@ -45,4 +45,16 @@ export class AuthController{
         await session.quit();
         return res.status(200).send();
     }
+
+    public async get(req: Request, res: Response): Promise<Response>{
+        const session = new FirestoreSession();
+        
+        const sessionId = await session.get();
+
+        if(!sessionId.id){
+            return res.status(400).send('No session found.');
+        }
+
+        return res.json({id: sessionId.id});
+    }
 }

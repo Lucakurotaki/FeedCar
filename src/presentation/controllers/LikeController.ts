@@ -44,7 +44,7 @@ export class LikeController{
 
         const likeCheck = await query.execute({userId: sessionId.id, vehicleId});
 
-        return res.json(likeCheck);
+        return res.json({state: likeCheck});
     }
 
     public async delete(req: Request, res: Response): Promise<Response>{

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <script src="post.js"></script>
+    <title id="post-title-head"></title>
+</head>
+<body>
+    <header>
+        <h1>FeedCar</h1>
+        <nav class="top-nav">
+            <a href="signin.html">Sign In</a>
+            <a href="signup.html">sign Up</a>
+        </nav>
+    </header>
+
+    <div class="title-spacing"></div>
+
+    <section id="post">
+        <h3 id="post-title"></h3>
+
+        <div id="container-post">
+            <template id="post-template">
+                <div>
+                    <p>Id: <span></span></p>
+                    <p>UserId: <span></span></p>
+                    <p>Model: <span></span></p>
+                    <p>Year: <span></span></p>
+                    <p>Engine: <span></span></p>
+                    <p>Gear: <span></span></p>
+                    <p>On Sale: <span></span></p>
+                    <p>Rent: <span></span></p>
+                    <p>Value: R$<span></span></p>
+
+                    <button id="btn-like" disabled></button>
+
+                    <button id="btn-delete-post" hidden>Delete</button>
+                </div>
+            </template>
+        </div>
+    </section>
+
+    <section id="comment">
+        <h3>Comments</h3>
+
+        <div id="add-comment">
+            <h4>Write a new comment</h4>
+            <textarea name="comment" id="comment-content" class="textarea" cols="30" rows="10" placeholder="Write a comment"></textarea>
+            <button id="btn-add-comment">Send</button>
+        </div>
+
+        <div id="container-comments">
+            <template id="comment-template">
+                <div>
+                    <p>CommentId: <span></span></p>
+                    <p>UserId: <span></span></p>
+                    <p><span></span></p>
+
+                    <button id="btn-delete-comment" hidden>Delete</button>
+                </div>
+
+                <div class="comment-spacing"></div>
+            </template>
+        </div>
+
+    </section>
+
+</body>
