@@ -5,6 +5,10 @@ body {
     color: rgb(245, 126, 8);
 }
 
+.center{
+    text-align: center;
+}
+
 .title-spacing{
     height: 10vh;
 }

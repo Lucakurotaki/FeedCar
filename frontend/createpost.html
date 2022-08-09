@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <script src="createpost.js"></script>
+    <title>Create a post</title>
+</head>
+<body>
+    <header>
+        <h1>FeedCar</h1>
+        <nav class="top-nav">
+            <a href="#" id="logout">Logout</a>
+        </nav>
+    </header>
+
+    <div class="title-spacing"></div>
+
+    <section id="create-post" class="center">
+        <h3>Create a post</h3>
+        <div>
+            <div>
+                <label for="vehicle-model">Model</label>
+                <input type="text" id="vehicle-model" placeholder="Model" required>
+            </div>
+            <div class="post-spacing"></div>
+            <div>
+                <label for="vehicle-year">Year</label>
+                <input type="number" id="vehicle-year" placeholder="2000" required>
+            </div>
+            <div class="post-spacing"></div>
+            <div>
+                <label for="vehicle-engine">Engine</label>
+                <input type="number" id="vehicle-engine" placeholder="1.4" required>
+            </div>
+            <div class="post-spacing"></div>
+            <div>
+                <label for="vehicle-gear">Gear</label>
+                <select name="vehicle-gear" id="vehicle-gear" required>
+                    <option value="Automatic">Automatic</option>
+                    <option value="Manual">Manual</option>
+                </select>
+            </div>
+            <div class="post-spacing"></div>
+            <div>
+                <label for="vehicle-onSale">On Sale</label>
+                <select name="vehicle-onSale" id="vehicle-onSale">
+                    <option value="" selected></option>
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                </select>
+            </div>
+            <div class="post-spacing"></div>
+            <div>
+                <label for="vehicle-rent">Rent</label>
+                <select name="vehicle-rent" id="vehicle-rent">
+                    <option value="" selected></option>
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                </select>
+            </div>
+            <div class="post-spacing"></div>
+            <div>
+                <label for="vehicle-value">Value (R$)</label>
+                <input type="number" id="vehicle-value" placeholder="50000" required>
+            </div>
+        </div>
+
+        <button id="btn-new-post">Create</button>
+    </section>
+</body>
+</html>

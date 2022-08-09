@@ -45,9 +45,33 @@ const createPostElement = (element) =>{
         const deleteBtn = postElement.getElementById('btn-delete-post');
 
         deleteBtn.hidden = false;
+        deleteBtn.onclick = deletePost;
     }
 
     return postElement;
+}
+
+const deletePost = async () =>{
+    if(!confirm("Are you sure you want to delete this post?")){
+        return
+    };
+
+    const id = getPostId();
+
+    init = {
+        method: 'DELETE',
+        headers: {
+            "Content-Type" : 'application/json'
+        },
+        body: null
+    }
+
+    const response = await fetch(`http://localhost:3000/vehicles/${id}`, init);
+    const data = await response.json();
+
+    console.log(data);
+
+    location.href=`index.html`;
 }
 
 
@@ -81,20 +105,41 @@ const loadLikeState = async (id)=>{
     const response = await fetch(`http://localhost:3000/likes/${id}`);
 
     const data = await response.json();
-    console.log(id);
-    console.log(data.state);
 
     const postLike = document.getElementById('btn-like');
 
     
     postLike.disabled = false;
+    postLike.onclick = setLikeState;
     
     if(data.state){
-        postLike.innerHTML = "Like";
-    }else{
         postLike.innerHTML = "Unlike";
+    }else{
+        postLike.innerHTML = "Like";
     }
 
+}
+
+const setLikeState = async () =>{
+    const id = getPostId();
+
+    const vehicleId = {
+        vehicleId: id
+    }
+    const init = {
+        method: 'POST',
+        headers: {
+            "Content-Type" : 'application/json'
+        },
+        body: JSON.stringify(vehicleId)
+    }
+
+    console.log("init", init)
+
+    const response = await fetch('http://localhost:3000/likes', init);
+    const data = await response.json();
+
+    console.log(data.id);
 }
 
 
@@ -133,7 +178,7 @@ const createCommentElement = (element) =>{
     if(element.userId == sessionId){
         const deleteBtn = commentElement.getElementById('btn-delete-comment');
 
-        deleteBtn.hidden = false; 
+        deleteBtn.hidden = false;
     }
 
     return commentElement;
@@ -160,7 +205,7 @@ const postComment = async () =>{
     const response = await fetch(`http://localhost:3000/comments/`, init);
     const data = await response.json();
 
-    console.log(data)
+    document.location.reload();
 }
 
 
